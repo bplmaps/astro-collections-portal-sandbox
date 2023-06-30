@@ -1,0 +1,30 @@
+---
+import IiifImageViewer from "@components/iiifViewer/iiifImageViewer.svelte";
+
+interface Props {
+    iiifType: string;
+    endpointUrl: string;
+}
+
+const { iiifType = "manifest", endpointUrl } = Astro.props;
+let imageEndpointArray = new Array;
+
+if (iiifType === "image") {
+    imageEndpointArray[0] = endpointUrl;
+} else if (iiifType === "manifest") {
+    await fetch(endpointUrl)
+        .then((d) => d.json())
+        .then((manifestJson) => {
+            manifestJson.sequences.forEach((s) => {
+                s.canvases.forEach((c) => {
+                    c.images.forEach((i) => {
+                        imageEndpointArray.push(i.resource.service['@id']);
+                    });
+                });
+            });
+        });
+}
+---
+
+<IiifImageViewer imageEndpointArray={imageEndpointArray} client:only="svelte" />
+<!-- needs to have client:only tag so that it renders only after mount, because openseadragon needs access to document -->

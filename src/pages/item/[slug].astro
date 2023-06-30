@@ -1,0 +1,32 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@layouts/Layout.astro";
+import Container from "@components/container.astro";
+
+import IiifViewer from "@components/iiifViewer/iiifViewer.astro";
+
+
+
+// Generate a new path for every collection entry
+export async function getStaticPaths() {
+  const itemEntries = await getCollection("item");
+  return itemEntries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const digitalCommonwealthResponse = await fetch(`https://www.digitalcommonwealth.org/search/${entry.id}.json`);
+const digitalCommonwealthData = await digitalCommonwealthResponse.json();
+
+
+---
+
+<Layout title="Collection Record">
+  <Container>
+    <h1 class="text-4xl mb-6">{digitalCommonwealthData.data.attributes.title_info_primary_tsi}</h1>
+    <IiifViewer iiifType="manifest" endpointUrl="https://collections.leventhalmap.org/search/commonwealth:6969z354f/manifest.json" />
+  </Container>
+
+</Layout>
