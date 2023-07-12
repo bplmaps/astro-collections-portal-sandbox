@@ -20,13 +20,16 @@ const { entry } = Astro.props;
 const digitalCommonwealthResponse = await fetch(`https://www.digitalcommonwealth.org/search/${entry.id}.json`);
 const digitalCommonwealthData = await digitalCommonwealthResponse.json();
 
+const manifestUrl = `https://www.digitalcommonwealth.org/search/${entry.id}/manifest.json`
 
 ---
 
 <Layout title="Collection Record">
   <Container>
     <h1 class="text-4xl mb-6">{digitalCommonwealthData.data.attributes.title_info_primary_tsi}</h1>
-    <IiifViewer iiifType="manifest" endpointUrl="https://collections.leventhalmap.org/search/commonwealth:6969z354f/manifest.json" />
-  </Container>
+    <IiifViewer iiifType="manifest" endpointUrl={manifestUrl} />
 
+    <h1>Metadata</h1>
+    {JSON.stringify(digitalCommonwealthData)}
+  </Container>
 </Layout>
