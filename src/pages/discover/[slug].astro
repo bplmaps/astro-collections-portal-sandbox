@@ -5,7 +5,7 @@ import Container from "@components/container.astro";
 
 // Generate a new path for every collection entry
 export async function getStaticPaths() {
-  const blogEntries = await getCollection("essays");
+  const blogEntries = await getCollection("discover");
   return blogEntries.map((entry) => ({
     params: { slug: entry.slug },
     props: { entry },
@@ -20,9 +20,7 @@ const { Content } = await entry.render();
 <Layout title={entry.data.title}>
   <Container>
     <div class="mx-auto max-w-3xl mt-14">
-      <span class="text-blue-400 uppercase tracking-wider text-sm font-medium">
-        {entry.data.category}
-      </span>
+
       <h1
         class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-1 lg:leading-tight">
         {entry.data.title}
@@ -37,14 +35,7 @@ const { Content } = await entry.render();
           datetime={entry.data.publishDate.toISOString()}>
           {entry.data.publishDate.toDateString()}
         </time>
-        <span class="text-gray-400 hidden md:block">•</span>
-        <div class="w-full md:w-auto flex flex-wrap gap-3">
-          {
-            entry.data.tags.map((tag) => (
-              <span class="text-sm text-gray-500">#{tag}</span>
-            ))
-          }
-        </div>
+        
       </div>
     </div>
 
@@ -55,7 +46,7 @@ const { Content } = await entry.render();
       <a
         href="/blog"
         class="bg-gray-100 px-5 py-3 rounded-md hover:bg-gray-200 transition"
-        >← Back to Blog</a
+        >← Back to Discover</a
       >
     </div>
   </Container>
