@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@layouts/Layout.astro";
+import Container from "@components/container.astro";
+
+// Generate a new path for every  entry
+export async function getStaticPaths() {
+  const itemEntries = await getCollection("collection-group");
+  return itemEntries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+
+---
+
+<Layout title={entry.data.title}>
+  <Container>
+    <div class="mx-auto max-w-3xl mt-14">
+
+      <h1
+        class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-1 lg:leading-tight">
+        {entry.data.title}
+      </h1>
+      
+    </div>
+
+    <div class="mx-auto prose prose-lg mt-6 max-w-3xl">
+      { entry.data.items.map((collectionGroupItem) => (
+          <div>
+            <h2>{collectionGroupItem.identifier}</h2>
+            {}
+          
+          </div>
+
+      )
+
+      ) }
+    </div>
+    
+  </Container>
+</Layout>

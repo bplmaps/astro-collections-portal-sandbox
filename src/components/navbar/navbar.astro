@@ -4,30 +4,27 @@ import Link from "@components/ui/link.astro";
 import Dropdown from "./dropdown.astro";
 import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
 
-import instanceVariables from 'instance.json';
+import { getCollection } from "astro:content";
+
+import instanceVariables from "instance.json";
+
+const collectionGroupRecords = await getCollection("collection-group");
 
 const menuitems = [
   {
-    title: "Themes",
-    path: "#",
-    children: [
-      { title: "Action", path: "/" },
-      { title: "Another action", path: "#" },
-      { title: "Dropdown Submenu", path: "#" },
-      { title: "404 Page", path: "/404" },
-    ],
+    title: "Collection Groups",
+    path: "/",
+    children: collectionGroupRecords.map((r) => {
+      return { title: r.data.title };
+    }),
   },
   {
-    title: "About",
-    path: "/about",
+    title: "Discover",
+    path: "/discover",
   },
   {
-    title: "Essays",
-    path: "/essays",
-  },
-  {
-    title: "Contact",
-    path: "/contact",
+    title: "Further Research",
+    path: "/further-research",
   },
 ];
 ---
@@ -77,8 +74,7 @@ const menuitems = [
     </Astronav>
     <div>
       <div class="hidden lg:flex items-center gap-4">
-        <a href="#">Log in</a>
-        <Link href="#" size="md">Sign up</Link>
+        <a href="#">Search</a>
       </div>
     </div>
   </header>
