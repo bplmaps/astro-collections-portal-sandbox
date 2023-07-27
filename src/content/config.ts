@@ -1,8 +1,8 @@
 // 1. Import utilities from `astro:content`
-import { z, defineCollection } from 'astro:content';
+import { z, reference, defineCollection } from 'astro:content';
 
 // 2. Define your collection(s)
-const discoverCollection = defineCollection({
+const discover = defineCollection({
   schema: z.object({
     draft: z.boolean(),
     title: z.string(),
@@ -11,16 +11,17 @@ const discoverCollection = defineCollection({
   }),
 });
 
-const collectionGroupCollection = defineCollection({
+
+const itemCollection = defineCollection({
   type: "data",
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    items: z.array(z.object({ "identifier": z.string(), "featured": z.boolean().optional() }))
+    items: z.array(reference('item'))
   }),
-});
+}); 
 
-const itemCollection = defineCollection({
+const item = defineCollection({
   type: "data",
   schema: z.object({
     itemType: z.enum(["digitalCommonwealth", "internetArchive"]),
@@ -31,7 +32,7 @@ const itemCollection = defineCollection({
 // 3. Export a single `collections` object to register your collection(s)
 //    This key should match your collection directory name in "src/content"
 export const collections = {
-  'discover': discoverCollection,
-  'collection-group': collectionGroupCollection,
-  'item': itemCollection
+  'discover': discover,
+  'collection-group': itemCollection,
+  'item': item
 };
