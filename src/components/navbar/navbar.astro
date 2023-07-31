@@ -5,10 +5,9 @@ import Dropdown from "./dropdown.astro";
 import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
 
 import { getCollection } from "astro:content";
+const collectionGroupRecords = await getCollection("collection-group");
 
 import instanceVariables from "instance.json";
-
-const collectionGroupRecords = await getCollection("collection-group");
 
 const menuitems = [
   {

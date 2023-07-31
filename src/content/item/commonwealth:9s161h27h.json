@@ -1,4 +1,5 @@
 { 
     "itemType": "digitalCommonwealth",
-    "tags": ["surveyor plans"]
+    "tags": ["surveyor plans"],
+    "featured": false
 }

@@ -1,0 +1,29 @@
+---
+import Card from "@components/card.astro"
+import { getEntries } from "astro:content";
+
+const { item } = Astro.props;
+
+// Ideally, we'd want this, but getEntries doesn't accept filter functions.
+// const collectionItems = await getEntries(items, ({ data }) => {
+//  return data.featured === true;
+// });
+const collectionItems = await getEntries(item.data.items);
+
+const featuredItem = collectionItems.filter(function(i) {
+  return i.data.featured === true;
+})[0];
+
+console.log(featuredItem);
+
+---
+<Card>
+    <img class="w-full" src="https://v1.tailwindcss.com/img/card-top.jpg" alt=`Image from ${featuredItem.id}`>
+    {item.data.title && 
+    <div class="p-4">
+        <div class="text-gray-900 font-bold text-xl mb-2">
+          <a href=`${item.collection}/${item.id}` style="muted">{item.data.title}</a>
+        </div>
+    </div>
+    }
+</Card>
