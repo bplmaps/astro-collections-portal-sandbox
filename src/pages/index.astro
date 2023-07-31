@@ -1,18 +1,24 @@
 ---
 import Container from "@components/container.astro";
-import Cta from "@components/cta.astro";
-import Features from "@components/features.astro";
-import Footer from "@components/footer.astro";
+import DiscoverGrid from "@components/discovergrid.astro";
+import CollectionGrid from "@components/collectiongrid.astro";
 import Hero from "@components/hero.astro";
-import Logos from "@components/logos.astro";
+import SectionHead from "@components/sectionhead.astro";
 import Layout from "@layouts/Layout.astro";
+
+
+import data from "instance.json";
 ---
 
-<Layout title="">
+<Layout title={data.projectTitle}>
   <Container>
-    <Hero />
-    <Features />
-    <Logos />
-    <Cta />
+    <Hero 
+      title={data.projectTitle} 
+      heroText={data.projectDescription}
+      />
+    <SectionHead text="Discover Stories"/>
+    <DiscoverGrid />
+    <SectionHead text="Explore Collections"/>
+    <CollectionGrid />
   </Container>
 </Layout>
