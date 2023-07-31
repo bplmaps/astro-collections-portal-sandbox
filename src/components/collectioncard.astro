@@ -10,19 +10,19 @@ const { item } = Astro.props;
 // });
 const collectionItems = await getEntries(item.data.items);
 
+console.log(collectionItems);
+
 const featuredItem = collectionItems.filter(function(i) {
   return i.data.featured === true;
 })[0];
 
-console.log(featuredItem);
-
 ---
 <Card>
-    <img class="w-full" src="https://v1.tailwindcss.com/img/card-top.jpg" alt=`Image from ${featuredItem.id}`>
+    <img class="w-full" src="https://v1.tailwindcss.com/img/card-top.jpg"  alt=`Image from ${featuredItem.id}`>
     {item.data.title && 
     <div class="p-4">
         <div class="text-gray-900 font-bold text-xl mb-2">
-          <a href=`${item.collection}/${item.id}` style="muted">{item.data.title}</a>
+          <a href=`${item.collection}/${item.id}` >{item.data.title}</a>
         </div>
     </div>
     }

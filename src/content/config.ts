@@ -25,7 +25,8 @@ const item = defineCollection({
   type: "data",
   schema: z.object({
     itemType: z.enum(["digitalCommonwealth", "internetArchive"]),
-    tags: z.array(z.string()).optional()
+    tags: z.array(z.string()).optional(),
+    featured: z.boolean().optional()
   })
 });
 
