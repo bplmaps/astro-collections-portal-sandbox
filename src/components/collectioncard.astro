@@ -4,14 +4,10 @@ import { getEntries } from "astro:content";
 import ItemThumbnail from "@components/itemthumbnail.astro"
 const { item } = Astro.props;
 
-// Ideally, we'd want this, but getEntries doesn't accept filter functions.
-// const collectionItems = await getEntries(items, ({ data }) => {
-//  return data.featured === true;
-// });
 const collectionItems = await getEntries(item.data.items);
 
 let featuredItem = collectionItems.filter(function(i) {
-  return i.data.featured === true;
+  return i.id === item.data.featured.id
 })[0];
 
 ---

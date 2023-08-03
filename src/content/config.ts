@@ -17,8 +17,19 @@ const itemCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    items: z.array(reference('item'))
-  }),
+    items: z.array(reference('item')),
+    featured: reference('item')
+  }).superRefine(
+    ({items, featured}, ctx) => {
+      if (!items.map((d) => d.id).includes(featured.id)) {
+        ctx.addIssue({
+          code: "custom",
+          message: "`featured` must be included in `items`",
+          path: ["featured"]
+        })
+      }
+    }
+  ),
 }); 
 
 const item = defineCollection({
