@@ -10,11 +10,13 @@ import data from "instance.json";
 ---
 
 <Layout title={data.projectTitle}>
-  <Container>
-    <Hero 
-      title={data.projectTitle} 
+  <Hero 
+      title={data.projectTitle}
+      splashText={data.splashText}
       heroText={data.projectDescription}
+      headerImage={data.headerImage}
       />
+  <Container>
     <SectionHead text="Discover Stories"/>
     <DiscoverGrid />
     <SectionHead text="Explore Collections"/>
