@@ -26,7 +26,13 @@ const manifestUrl = `https://www.digitalcommonwealth.org/search/${entry.id}/mani
 
 <Layout title="Collection Record">
   <Container>
-    <h1 class="text-4xl mb-6">{digitalCommonwealthData.data.attributes.title_info_primary_tsi}</h1>
+    <div class="py-4">
+      <div class="mb-3">
+        <span class="inline-flex items-center rounded-md bg-purple-100 px-2 py-1 text-sm font-medium text-purple-700">Collection Item</span>
+      </div>
+      <h1 class="text-4xl mb-6 font-bold font-serif">{digitalCommonwealthData.data.attributes.title_info_primary_tsi}</h1>
+
+    </div>
     <IiifViewer iiifType="manifest" endpointUrl={manifestUrl} />
 
     <h1>Metadata</h1>

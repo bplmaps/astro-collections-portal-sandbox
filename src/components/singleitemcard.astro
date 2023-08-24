@@ -1,0 +1,19 @@
+---
+import Card from "@components/card.astro"
+import { getEntry } from "astro:content";
+import ItemThumbnail from "@components/itemthumbnail.astro"
+const { itemId } = Astro.props;
+
+const record = await getEntry('item', itemId);
+const link = `/item/${itemId}`
+
+
+---
+<a href={link}>
+<Card>
+  <ItemThumbnail id={itemId} />
+  <div>
+    <span>Tags ...</span>
+  </div>
+</Card>
+</a>
