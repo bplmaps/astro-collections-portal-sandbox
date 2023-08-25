@@ -3,6 +3,8 @@ import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import Container from "@components/container.astro";
 
+import ItemCard from "@components/itemCard/itemCard.astro"
+
 import SingleItemCard from "@components/singleitemcard.astro";
 import CardGrid from "@components/cardgrid.astro";
 
@@ -32,8 +34,7 @@ const { entry } = Astro.props;
 
       <CardGrid>
       { entry.data.items.map((collectionGroupItem) => (
-          <SingleItemCard itemId={collectionGroupItem.id} />
-
+          <ItemCard identifier={collectionGroupItem.id} />
       )
 
       ) }
