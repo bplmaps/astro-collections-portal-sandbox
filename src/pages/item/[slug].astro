@@ -17,10 +17,11 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const digitalCommonwealthResponse = await fetch(`https://www.digitalcommonwealth.org/search/${entry.id}.json`);
+const commId = entry.id.replace("--",":")
+const digitalCommonwealthResponse = await fetch(`https://www.digitalcommonwealth.org/search/${commId}.json`);
 const digitalCommonwealthData = await digitalCommonwealthResponse.json();
 
-const manifestUrl = `https://www.digitalcommonwealth.org/search/${entry.id}/manifest.json`
+const manifestUrl = `https://www.digitalcommonwealth.org/search/${commId}/manifest.json`
 
 ---
 

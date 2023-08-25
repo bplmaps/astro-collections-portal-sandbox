@@ -4,7 +4,7 @@ const { id } = Astro.props;
 let title;
 
 async function getImageURL(id) {
-    const meta_endpoint = new URL(`https://collections.leventhalmap.org/search/${id}?format=json`)
+    const meta_endpoint = new URL(`https://collections.leventhalmap.org/search/${id.replace("--",":")}?format=json`)
     const data = await fetch(meta_endpoint)
         .then(response => response.json())
     title = data.response.document.title_info_primary_tsi;
