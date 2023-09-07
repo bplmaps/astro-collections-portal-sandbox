@@ -6,7 +6,7 @@ module.exports = {
     extend: {
       fontFamily: {
         serif: ["henderson-slab-basic", ...defaultTheme.fontFamily.serif],
-        sans: ["InterVariable", "Inter", ...defaultTheme.fontFamily.sans],
+        sans: ["astoria", ...defaultTheme.fontFamily.sans],
       },
     },
   },
