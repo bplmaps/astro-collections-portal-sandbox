@@ -17,16 +17,26 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const digitalCommonwealthResponse = await fetch(`https://www.digitalcommonwealth.org/search/${entry.id}.json`);
+const commId = entry.id.replace("--",":")
+const digitalCommonwealthResponse = await fetch(`https://www.digitalcommonwealth.org/search/${commId}.json`);
 const digitalCommonwealthData = await digitalCommonwealthResponse.json();
 
+const manifestUrl = `https://www.digitalcommonwealth.org/search/${commId}/manifest.json`
 
 ---
 
 <Layout title="Collection Record">
   <Container>
-    <h1 class="text-4xl mb-6">{digitalCommonwealthData.data.attributes.title_info_primary_tsi}</h1>
-    <IiifViewer iiifType="manifest" endpointUrl="https://collections.leventhalmap.org/search/commonwealth:6969z354f/manifest.json" />
-  </Container>
+    <div class="py-4">
+      <div class="mb-3">
+        <span class="inline-flex items-center rounded-md bg-purple-100 px-2 py-1 text-sm font-medium text-purple-700">Collection Item</span>
+      </div>
+      <h1 class="text-4xl mb-6 font-bold font-serif">{digitalCommonwealthData.data.attributes.title_info_primary_tsi}</h1>
 
+    </div>
+    <IiifViewer iiifType="manifest" endpointUrl={manifestUrl} />
+
+    <h1>Metadata</h1>
+    {JSON.stringify(digitalCommonwealthData)}
+  </Container>
 </Layout>

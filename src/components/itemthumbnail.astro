@@ -1,0 +1,19 @@
+---
+const { id } = Astro.props;
+
+let title;
+
+async function getImageURL(id) {
+    const meta_endpoint = new URL(`https://collections.leventhalmap.org/search/${id.replace("--",":")}?format=json`)
+    const data = await fetch(meta_endpoint)
+        .then(response => response.json())
+    title = data.response.document.title_info_primary_tsi;
+    const exemplary_image = data.response.document.exemplary_image_ssi
+    const url = `https://bpldcassets.blob.core.windows.net/derivatives/images/${exemplary_image}/image_thumbnail_300.jpg`
+    return url
+}
+
+let data = await getImageURL(id);
+---
+
+<img class="w-full" src={data}  alt=`Image from ${title}`>

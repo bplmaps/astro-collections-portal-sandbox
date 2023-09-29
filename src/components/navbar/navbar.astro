@@ -4,39 +4,34 @@ import Link from "@components/ui/link.astro";
 import Dropdown from "./dropdown.astro";
 import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
 
-import instanceVariables from 'instance.json';
+import { getCollection } from "astro:content";
+const collectionGroupRecords = await getCollection("collection-group");
+
+import instanceVariables from "instance.json";
 
 const menuitems = [
   {
-    title: "Themes",
-    path: "#",
-    children: [
-      { title: "Action", path: "/" },
-      { title: "Another action", path: "#" },
-      { title: "Dropdown Submenu", path: "#" },
-      { title: "404 Page", path: "/404" },
-    ],
+    title: "Collection Groups",
+    path: "/collection-group",
+    children: collectionGroupRecords.map((r) => {
+      return { title: r.data.title, slug: r.id };
+    }),
   },
   {
-    title: "About",
-    path: "/about",
+    title: "Discover Stories",
+    path: "/discover",
   },
   {
-    title: "Essays",
-    path: "/essays",
-  },
-  {
-    title: "Contact",
-    path: "/contact",
+    title: "Further Research",
+    path: "/further-research",
   },
 ];
 ---
-
 <Container>
   <header class="flex flex-col lg:flex-row justify-between items-center my-5">
     <Astronav>
       <div class="flex w-full lg:w-auto items-center justify-between">
-        <a href="/" class="text-lg font-semibold"
+        <a href="/" class="max-w-xs text-lg font-semibold font-serif"
           >{instanceVariables.projectTitle}
         </a>
         <div class="block lg:hidden">
@@ -50,6 +45,7 @@ const menuitems = [
               <>
                 {item.children && (
                   <Dropdown
+                    path={item.path}
                     title={item.title}
                     children={item.children}
                     lastItem={index === menuitems.length - 1}
@@ -69,17 +65,15 @@ const menuitems = [
             ))
           }
         </ul>
-        <div class="lg:hidden flex items-center mt-3 gap-4">
-          <Link href="#" style="muted" block size="md">Log in</Link>
-          <Link href="#" size="md" block>Sign up</Link>
-        </div>
       </MenuItems>
     </Astronav>
-    <div>
+    <!-- SEARCH TO BE ADDED LATER -->
+    <!-- ------------------------ -->
+    <!-- <div>
       <div class="hidden lg:flex items-center gap-4">
-        <a href="#">Log in</a>
-        <Link href="#" size="md">Sign up</Link>
+        <a href="#">Search</a>
       </div>
-    </div>
+    </div> -->
   </header>
 </Container>
+
